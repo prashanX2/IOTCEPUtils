@@ -12,6 +12,8 @@ public class Main {
         try {
             final DatagramSocket serverSocket = new DatagramSocket(44444);
 
+            System.out.println(System.nanoTime());
+
             System.out.println("Server startedd on main: " + serverSocket.getLocalAddress() + "@" + serverSocket.getLocalPort());
 
              byte[] receiveData = new byte[1024];
@@ -25,8 +27,11 @@ public class Main {
                 System.out.println("RECEIVED: " + sentence);
                 InetAddress IPAddress = receivePacket.getAddress();
                 int port = receivePacket.getPort();
-                String capitalizedSentence = sentence.toUpperCase();
-                sendData = capitalizedSentence.getBytes();
+
+                long s = System.nanoTime();
+
+                String time =  String.valueOf(s);
+                sendData = time.getBytes();
                 DatagramPacket sendPacket =
                         new DatagramPacket(sendData, sendData.length, IPAddress, port);
                 serverSocket.send(sendPacket);
