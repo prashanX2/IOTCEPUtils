@@ -16,7 +16,7 @@ public class Main {
 
             System.out.println("Server startedd on main: " + serverSocket.getLocalAddress() + "@" + serverSocket.getLocalPort());
 
-             byte[] receiveData = new byte[1024];
+             byte[] receiveData = new byte[20048];
              byte[] sendData = new byte[1024];
 
             while(true)
@@ -24,7 +24,8 @@ public class Main {
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
                 String sentence = new String( receivePacket.getData());
-                System.out.println("RECEIVED: " + sentence);
+                //System.out.println("RECEIVED: " + sentence);
+
                 InetAddress IPAddress = receivePacket.getAddress();
                 int port = receivePacket.getPort();
 
@@ -35,6 +36,7 @@ public class Main {
                 DatagramPacket sendPacket =
                         new DatagramPacket(sendData, sendData.length, IPAddress, port);
                 serverSocket.send(sendPacket);
+                System.out.println("sent");
             }
 
 
