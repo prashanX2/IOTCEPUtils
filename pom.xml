@@ -24,7 +24,7 @@
                 <configuration>
                     <mainClass>com.iotceputils.Main</mainClass>
                     <includePluginDependencies>false</includePluginDependencies>
-                    
+
                 </configuration>
             </plugin>
 
