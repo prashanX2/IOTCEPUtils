@@ -16,7 +16,7 @@ public class Main {
 
             System.out.println("Server startedd on main: " + serverSocket.getLocalAddress() + "@" + serverSocket.getLocalPort());
 
-             byte[] receiveData = new byte[20048];
+             byte[] receiveData = new byte[1024];
              byte[] sendData = new byte[1024];
 
             while(true)
@@ -42,7 +42,7 @@ public class Main {
 
         }catch(Exception ex)
         {
-
+            System.out.println(ex.toString());
 
         }
 
