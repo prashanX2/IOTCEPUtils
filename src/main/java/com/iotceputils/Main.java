@@ -31,8 +31,9 @@ public class Main {
                 System.out.println("Received: " + clientSentence);
                 capitalizedSentence = clientSentence.toUpperCase() + '\n';
 
-                outToClient.writeBytes(capitalizedSentence);
 
+                outToClient.writeBytes(capitalizedSentence);
+                outToClient.writeBytes("no end");
 
 
                 System.out.println("sent to");
