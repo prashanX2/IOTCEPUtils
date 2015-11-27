@@ -59,6 +59,31 @@ public class Main {
     }
 
 
+    public void send(String toSend)
+    {
+        try
+        {
+            //outToServer = new DataOutputStream(gatewayclientSocket.getOutputStream());
+            //outToServer.writeBytes(toSend);
+
+            Socket clientSocket = new Socket(clientaddress, 22221);
+
+            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+            //BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            //String sentence = toSend;
+            outToServer.writeBytes(toSend);
+
+            //modifiedSentence = inFromServer.readLine();
+            System.out.println("Sent top server "+toSend);
+            clientSocket.close();
+        }catch(Exception e){System.out.println(e.toString());}
+
+
+    }
+
+
+
+
     public  void writetoClient()
     {
         try {
@@ -90,8 +115,13 @@ public class Main {
         Main n = new Main();
         n.start();
 
+        Scanner ni = new Scanner(System.in);
+        while(true) {
+            System.out.println("input: ");
+            String input = ni.nextLine();
+            n.send(input);
 
-
+        }
 
 
 
