@@ -9,32 +9,76 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         try {
 
             String clientSentence;
             String capitalizedSentence;
-            final ServerSocket serverSocket = new ServerSocket(44444);
+            final ServerSocket serverSocket = new ServerSocket(22222);
+            System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
+            //final DatagramSocket serverSocket = new DatagramSocket(44444);
+
+
+
+            while(true)
+            {
+
+                Socket connectionSocket = serverSocket.accept();
+
+                BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+                DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+
+                clientSentence = inFromClient.readLine();
+                System.out.println("Received: " + clientSentence);
+                capitalizedSentence = clientSentence.toUpperCase() + '\n';
+
+                outToClient.writeBytes(capitalizedSentence);
+
+
+
+                System.out.println("sent to");
+            }
+
+
+        }catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+
+        }
+
+
+
+
+
+
+
+
+/**
+        try {
+
+            String clientSentence;
+            String capitalizedSentence;
+            final ServerSocket serverSocket = new ServerSocket(55555);
 
             //final DatagramSocket serverSocket = new DatagramSocket(44444);
 
             System.out.println(System.nanoTime());
 
-            System.out.println("Server startedd on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
+
 
              byte[] receiveData = new byte[1024];
              byte[] sendData = new byte[1024];
 
             while(true)
             {
-
+                System.out.println("Server startedd on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
                 Socket connectionSocket = serverSocket.accept();
+
                 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-                DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+                //DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
                 clientSentence = inFromClient.readLine();
                 System.out.println("Received: " + clientSentence);
-                capitalizedSentence = clientSentence.toUpperCase() + '\n';
-                outToClient.writeBytes(capitalizedSentence);
+                //capitalizedSentence = clientSentence.toUpperCase() + '\n';
+                //outToClient.writeBytes(capitalizedSentence);
 
 
                // DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -71,7 +115,7 @@ public class Main {
 
             long g = System.nanoTime();
             System.out.println(g-h);
-
+*/
         }
     }
 
