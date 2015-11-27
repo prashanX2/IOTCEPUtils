@@ -33,7 +33,8 @@ public class Main {
 
 
                 outToClient.writeBytes(capitalizedSentence);
-                outToClient.writeBytes("no end");
+                capitalizedSentence = "noe end";
+                outToClient.writeBytes(capitalizedSentence );
 
 
                 System.out.println("sent to");
