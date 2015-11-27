@@ -7,26 +7,21 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Main {
-    String clientSentence;
-    String capitalizedSentence;
-    ServerSocket serverSocket ;
-    //System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
-    //final DatagramSocket serverSocket = new DatagramSocket(44444);
+/*
 
-    Socket connectionSocket;
-    BufferedReader inFromClient;
-    DataOutputStream outToClient;
-    String clientaddress;
+    public static ServerSocket serverSocket;
+    public static Socket connectionSocket;
+    public static BufferedReader inFromClient;
+    public static DataOutputStream outToClient;
+    public static String clientaddress;
 
-    public void start()
+    public static  void start()
     {
         try {
 
-            String clientSentence;
-            String capitalizedSentence;
+
             serverSocket = new ServerSocket(22222);
             System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
-            //final DatagramSocket serverSocket = new DatagramSocket(44444);
 
 
 
@@ -35,7 +30,7 @@ public class Main {
 
                 connectionSocket = serverSocket.accept();
 
-                ;
+
                 clientaddress = connectionSocket.getInetAddress().toString();
 
                 clientaddress = clientaddress.replace("/", "");
@@ -43,8 +38,12 @@ public class Main {
 
                 System.out.println("accepted client : "+clientaddress);
 
+
                 inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+
+                System.out.println(inFromClient.readLine());
+
                break;
 
             }
@@ -59,23 +58,27 @@ public class Main {
     }
 
 
-    public void send(String toSend)
+    public static  void send(String toSend)
     {
         try
         {
+            DataOutputStream xoutToClient = new DataOutputStream(connectionSocket.getOutputStream());
             //outToServer = new DataOutputStream(gatewayclientSocket.getOutputStream());
             //outToServer.writeBytes(toSend);
+            xoutToClient.writeBytes(toSend + "\n");
+            xoutToClient.flush();
+           //xoutToClient.close();
 
-            Socket clientSocket = new Socket(clientaddress, 22221);
+            //Socket clientSocket = new Socket(clientaddress, 22221);
 
-            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+            //DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             //BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             //String sentence = toSend;
-            outToServer.writeBytes(toSend);
+            //outToServer.writeBytes(toSend);
 
             //modifiedSentence = inFromServer.readLine();
-            System.out.println("Sent top server "+toSend);
-            clientSocket.close();
+            System.out.println("Sent top server " + toSend);
+            //clientSocket.close();
         }catch(Exception e){System.out.println(e.toString());}
 
 
@@ -108,27 +111,27 @@ public class Main {
 
     }
 
-
+*/
 
     public static void main(String[] args) {
 
-        Main n = new Main();
-        n.start();
+        /**
+       Main.start();
 
         Scanner ni = new Scanner(System.in);
         while(true) {
             System.out.println("input: ");
             String input = ni.nextLine();
-            n.send(input);
+            Main.send(input);
 
         }
 
+*/
 
 
 
 
 
-/**
         try {
 
             String clientSentence;
@@ -191,7 +194,7 @@ public class Main {
 
             long g = System.nanoTime();
             System.out.println(g-h);
-*/
+
         }
     }
 
