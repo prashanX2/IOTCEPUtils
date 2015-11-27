@@ -4,8 +4,41 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Scanner;
 
 public class Main {
+    static String clientSentence;
+    static String capitalizedSentence;
+    static ServerSocket serverSocket ;
+    //System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
+    //final DatagramSocket serverSocket = new DatagramSocket(44444);
+
+    static Socket connectionSocket;
+    static BufferedReader inFromClient;
+    static DataOutputStream outToClient;
+
+    public static void writetoClient()
+    {
+        try {
+            clientSentence = inFromClient.readLine();
+            System.out.println("Received: " + clientSentence);
+            capitalizedSentence = clientSentence.toUpperCase() + '\n';
+
+            Scanner in = new Scanner(System.in);
+
+            String a = in.nextLine();
+
+            if (a.equals("y")) {
+                outToClient.writeBytes(capitalizedSentence);
+            }
+
+
+            System.out.println("sent to");
+        }catch(Exception e){System.out.println(e.toString());}
+
+    }
+
+
 
     public static void main(String[] args) {
 
@@ -13,7 +46,7 @@ public class Main {
 
             String clientSentence;
             String capitalizedSentence;
-            final ServerSocket serverSocket = new ServerSocket(22222);
+            serverSocket = new ServerSocket(22222);
             System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
             //final DatagramSocket serverSocket = new DatagramSocket(44444);
 
@@ -22,22 +55,12 @@ public class Main {
             while(true)
             {
 
-                Socket connectionSocket = serverSocket.accept();
+                connectionSocket = serverSocket.accept();
 
-                BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-                DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-
-                clientSentence = inFromClient.readLine();
-                System.out.println("Received: " + clientSentence);
-                capitalizedSentence = clientSentence.toUpperCase() + '\n';
+                inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+                outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 
 
-                outToClient.writeBytes(capitalizedSentence);
-                capitalizedSentence = "noe end";
-                outToClient.writeBytes(capitalizedSentence );
-
-
-                System.out.println("sent to");
             }
 
 
@@ -45,6 +68,11 @@ public class Main {
         {
             System.out.println(ex.toString());
 
+        }
+
+        while(true)
+        {
+            writetoClient();
         }
 
 
