@@ -7,41 +7,19 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Main {
-    static String clientSentence;
-    static String capitalizedSentence;
-    static ServerSocket serverSocket ;
+    String clientSentence;
+    String capitalizedSentence;
+    ServerSocket serverSocket ;
     //System.out.println("Result Server started on main: " + serverSocket.getInetAddress() + "@" + serverSocket.getLocalPort());
     //final DatagramSocket serverSocket = new DatagramSocket(44444);
 
-    static Socket connectionSocket;
-    static BufferedReader inFromClient;
-    static DataOutputStream outToClient;
+    Socket connectionSocket;
+    BufferedReader inFromClient;
+    DataOutputStream outToClient;
+    String clientaddress;
 
-    public static void writetoClient()
+    public void start()
     {
-        try {
-            clientSentence = inFromClient.readLine();
-            System.out.println("Received: " + clientSentence);
-            capitalizedSentence = clientSentence.toUpperCase() + '\n';
-
-            Scanner in = new Scanner(System.in);
-
-            String a = in.nextLine();
-
-            if (a.equals("y")) {
-                outToClient.writeBytes(capitalizedSentence);
-            }
-
-
-            System.out.println("sent to");
-        }catch(Exception e){System.out.println(e.toString());}
-
-    }
-
-
-
-    public static void main(String[] args) {
-
         try {
 
             String clientSentence;
@@ -57,9 +35,17 @@ public class Main {
 
                 connectionSocket = serverSocket.accept();
 
+                ;
+                clientaddress = connectionSocket.getInetAddress().toString();
+
+                clientaddress = clientaddress.replace("/", "");
+
+
+                System.out.println("accepted client : "+clientaddress);
+
                 inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-
+               break;
 
             }
 
@@ -70,10 +56,40 @@ public class Main {
 
         }
 
-        while(true)
-        {
-            writetoClient();
-        }
+    }
+
+
+    public  void writetoClient()
+    {
+        try {
+
+            //clientSentence = inFromClient.readLine();
+            //System.out.println("Received: " + clientSentence);
+            //capitalizedSentence = clientSentence.toUpperCase() + '\n';
+
+            Scanner in = new Scanner(System.in);
+
+            System.out.println("type: ");
+            String a = in.nextLine();
+
+            if (a.equals("y")) {
+                outToClient.writeBytes("from server");
+            }
+
+
+            System.out.println("sent to : "+clientaddress);
+
+        }catch(Exception e){System.out.println(e.toString());}
+
+    }
+
+
+
+    public static void main(String[] args) {
+
+        Main n = new Main();
+        n.start();
+
 
 
 
