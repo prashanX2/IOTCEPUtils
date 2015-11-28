@@ -136,7 +136,7 @@ public class Main {
 
             String clientSentence;
             String capitalizedSentence;
-            final ServerSocket serverSocket = new ServerSocket(55555);
+            final ServerSocket serverSocket = new ServerSocket(44444);
 
             //final DatagramSocket serverSocket = new DatagramSocket(44444);
 
