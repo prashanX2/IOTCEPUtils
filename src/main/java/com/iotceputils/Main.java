@@ -153,11 +153,11 @@ public class Main {
                 Socket connectionSocket = serverSocket.accept();
 
                 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-                //DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+                DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
                 clientSentence = inFromClient.readLine();
                 System.out.println("Received: " + clientSentence);
-                //capitalizedSentence = clientSentence.toUpperCase() + '\n';
-                //outToClient.writeBytes(capitalizedSentence);
+                capitalizedSentence = clientSentence.toUpperCase() + '\n';
+                outToClient.writeBytes(capitalizedSentence);
 
 
                // DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
